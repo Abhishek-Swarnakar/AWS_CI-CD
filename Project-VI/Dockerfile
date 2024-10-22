@@ -1,8 +1,10 @@
-FROM nginx:latest
+FROM nginx:1.21.6
 
 WORKDIR  /app
 
-COPY .  /usr/share/nginx/html/
+COPY .  /app
+
+COPY nginx.conf /etc/nginx/sites-available/default
 
 EXPOSE 8000
 

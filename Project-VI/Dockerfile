@@ -4,7 +4,7 @@ WORKDIR  /app
 
 COPY .  /app
 
-COPY nginx/nginx.conf /etc/nginx/sites-available/default
+COPY AWS_CI-CD/nginx/nginx.conf /etc/nginx/sites-available/default
 
 EXPOSE 8000
 

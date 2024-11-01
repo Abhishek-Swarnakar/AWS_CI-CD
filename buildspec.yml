@@ -1,0 +1,24 @@
+version: 0.2
+
+env:
+  parameter-store:
+    DOCKER_REGISTRY_USERNAME: /myapp/docker-cred/username
+    DOCKER_REGISTRY_PASSWORD: /myapp/docker-cred/password
+    DOCKER_REGISTRY_URL: /myapp/docker-registry/url
+
+phases:
+  build:
+    commands:
+      - echo "BUILDING THE IMAGE!!!"
+      - echo "$DOCKER_REGISTRY_PASSWORD" | docker login -u "$DOCKER_REGISTRY_USERNAME" --password-stdin "$DOCKER_REGISTRY_URL"
+      - docker build -t "$DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_USERNAME/image1:latest" -f ./Project-VI/Dockerfile ./Project-VI
+      - docker push "$DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_USERNAME/image1:latest"
+      
+  post_build:
+    commands:
+      - echo "COMPLETED"
+    
+artifacts:
+  files:
+    - "**/*"
+    
